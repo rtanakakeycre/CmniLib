@@ -16,7 +16,7 @@ using UtilLib;
 using System.Xml.Serialization;
 using System.Threading;
 
-namespace PipeLib
+namespace CmniLib
 {
     public delegate void dgPRS_LIST_UPD(string txCmd1);
     public delegate void dgRCV_DATA(byte[] adtCmd1, int ctCmd1);
@@ -24,7 +24,7 @@ namespace PipeLib
     // パイプリストの把握用クラス
     public class PipeCmni
     {
-        private static string NPSS_PRFX = "PipeLib";
+        private static string NPSS_PRFX = "CmniLib";
         // 通信ポートリスト
         public static List<sCMNI_PORT> m_asCmniPort;
         // 全プロセス一覧
@@ -81,6 +81,12 @@ namespace PipeLib
         }
 
         // 通信制御開始
+        public static void StaCmniCtrl()
+        {
+            StaCmniCtrl(null);
+        }
+
+        // 通信制御開始
         public static void StaCmniCtrl(dgPRS_LIST_UPD dgPrsListUpd1)
         {
             // 認識プロセス更新時のコールバック
@@ -116,7 +122,9 @@ namespace PipeLib
         {
             bool flCone1 = false;
             switch (sCmniPort1.m_sPortSets.m_nbPortType)
-            {                
+            {
+                case ePORT_TYPE.NON:
+                    break;
                 case ePORT_TYPE.SER:
                     // ポートを更新
                     flCone1 = SriOn(sCmniPort1.m_sPortSets);
@@ -141,6 +149,8 @@ namespace PipeLib
             bool flCone1 = false;
             switch (sCmniPort1.m_sPortSets.m_nbPortType)
             {
+                case ePORT_TYPE.NON:
+                    break;
                 case ePORT_TYPE.SER:
                     // ポートを更新
                     flCone1 = SriOn(sCmniPort1.m_sPortSets);
@@ -178,6 +188,8 @@ namespace PipeLib
 
             switch (sCmniPort1.m_sPortSets.m_nbPortType)
             {
+                case ePORT_TYPE.NON:
+                    break;
                 case ePORT_TYPE.SER:
                     break;
                 case ePORT_TYPE.PIPE:
@@ -481,7 +493,10 @@ namespace PipeLib
             }
 
             // プロセス更新コールバック呼び出し
-            m_dgPrsListUpd(txData1);
+            if(m_dgPrsListUpd == null)
+            {
+                m_dgPrsListUpd(txData1);
+            }
 
             return (txRes1);
         }
@@ -614,7 +629,10 @@ namespace PipeLib
 
             }
 
-            m_dgPrsListUpd(txData1);
+            if (m_dgPrsListUpd == null)
+            {
+                m_dgPrsListUpd(txData1);
+            }
 
             return (txRes1);
         }

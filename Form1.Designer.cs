@@ -1,5 +1,5 @@
 ﻿
-namespace PipeLib
+namespace CmniLib
 {
     partial class Form1
     {
@@ -29,15 +29,15 @@ namespace PipeLib
         /// </summary>
         private void InitializeComponent()
         {
-            this.portEditUc1 = new PipeLib.CmniEditUc();
+            this.portEditUc1 = new CmniLib.CmniEditUc();
             this.m_sRtbRcv = new System.Windows.Forms.RichTextBox();
             this.m_sRtbSend = new System.Windows.Forms.RichTextBox();
             this.m_sDgvPrsList = new System.Windows.Forms.DataGridView();
             this._Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.portSelUc1 = new PipeLib.PortSelUc();
+            this.portSelUc1 = new CmniLib.PortSelUc();
             this.button1 = new System.Windows.Forms.Button();
-            this.portEditUc2 = new PipeLib.CmniEditUc();
+            this.portEditUc2 = new CmniLib.CmniEditUc();
             this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_sDgvPrsList)).BeginInit();
             this.SuspendLayout();

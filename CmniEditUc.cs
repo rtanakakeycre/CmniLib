@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UtilLib;
 
-namespace PipeLib
+namespace CmniLib
 {
     public partial class CmniEditUc : UserControl
     {

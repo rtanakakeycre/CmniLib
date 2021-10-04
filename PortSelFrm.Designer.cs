@@ -1,5 +1,5 @@
 ﻿
-namespace PipeLib
+namespace CmniLib
 {
     partial class PortSelFrm
     {
@@ -29,7 +29,7 @@ namespace PipeLib
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_sPortSelUc = new PipeLib.PortSelUc();
+            this.m_sPortSelUc = new CmniLib.PortSelUc();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();

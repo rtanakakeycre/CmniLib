@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using UtilLib;
 
-namespace PipeLib
+namespace CmniLib
 {
     public partial class Form1 : Form
     {

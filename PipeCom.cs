@@ -17,11 +17,12 @@ using System.IO;
 using System.Reflection;
 using UtilLib;
 
-namespace PipeLib
+namespace CmniLib
 {
     // ポートタイプ
     public enum ePORT_TYPE
     {
+        NON,
         [Description("シリアル")] SER,
         [Description("パイプ")] PIPE,
         [Description("USB")] USB,

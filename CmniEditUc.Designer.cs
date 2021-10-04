@@ -1,5 +1,5 @@
 ﻿
-namespace PipeLib
+namespace CmniLib
 {
     partial class CmniEditUc
     {

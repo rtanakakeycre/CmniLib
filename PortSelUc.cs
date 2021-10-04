@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using UtilLib;
 
-namespace PipeLib
+namespace CmniLib
 {
     public partial class PortSelUc : UserControl
     {
@@ -16,8 +16,8 @@ namespace PipeLib
         {
             InitializeComponent();
             m_sPortSets = new sPORT_SETS();
-            
-            m_sCmbPortType.Items.AddRange(Com.GetDescriptionListFromEnum(typeof(ePORT_TYPE)));
+
+            m_sCmbPortType.Items.AddRange(Com.GetDescriptionListFromEnum(typeof(ePORT_TYPE)).Where(sPortType1 => sPortType1.m_txName != null).ToArray());
             m_sCmbDataBits.Items.AddRange(PipeCom.m_adtDataBit.Select(dtDataBit1 => dtDataBit1.ToString()).ToArray());
             m_sCmbStopBits.Items.AddRange(PipeCom.m_asStopBit);
             m_sCmbParity.Items.AddRange(PipeCom.m_asParity);
@@ -38,6 +38,8 @@ namespace PipeLib
                 m_sCmbPortType.Text = Com.GetDescription(m_sPortSets.m_nbPortType);
                 switch (m_sPortSets.m_nbPortType)
                 {
+                    case ePORT_TYPE.NON:
+                        break;
                     case ePORT_TYPE.SER:
                         m_sCmbPort.Enabled = true;
                         m_sCmbPort.Text = m_sPortSets.m_txSerPort;
