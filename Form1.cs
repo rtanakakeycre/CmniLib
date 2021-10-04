@@ -24,8 +24,8 @@ namespace CmniLib
             Com.Deserialize(Com.GetExePath() + "PortSelFrm.xml", ref m_sPortSelInfo, true);
             
             // パイプを追加
-            cmniCtrlUc1.AddCmniPort("Src", RcvData, m_sPortSelInfo.m_sPortSets);
-            cmniCtrlUc1.AddCmniPort("Dst", RcvData2, m_sPortSelInfo.m_sPortSetsDst);
+            cmniCtrlUc1.AddCmniPort("Src", m_sPortSelInfo.m_sPortSets);
+            cmniCtrlUc1.AddCmniPort("Dst", m_sPortSelInfo.m_sPortSetsDst);
 
             // 通信管理開始
             cmniCtrlUc1.StaCmniCtrl();

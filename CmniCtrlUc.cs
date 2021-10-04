@@ -17,19 +17,20 @@ using System.Threading;
 namespace CmniLib
 {
     public delegate void dgPRS_LIST_UPD(string txCmd1);
-    public delegate void dgRCV_DATA(byte[] adtCmd1, int ctCmd1);
+    public delegate void dgRCV_DATA(sCMNI_PORT sCmniPort1, byte[] adtCmd1, int ctCmd1);
 
     public partial class CmniCtrlUc : Component
     {
+        // データ受信イベント
+        public event dgRCV_DATA m_dgRcvData;
         // プロセスリスト更新イベント
         public event dgPRS_LIST_UPD m_dgPrsListUpd;
-        
+
         private string NPSS_PRFX = "CmniLib";
         // 通信ポートリスト
         public List<sCMNI_PORT> m_asCmniPort;
         // 全プロセス一覧
         public sPRS m_sPrs;
-        public dgRCV_DATA m_dgRcvData;
         public List<sOTH_PRS> m_asRcgPrs;           // 認識プロセスリスト
 
         // シリアルポートリスト
@@ -76,7 +77,10 @@ namespace CmniLib
                 int ctCmd1;
                 ctCmd1 = sSp1.Read(adtCmd1, 0, PipeCom.SRI_RCV_DATA_SIZE);
 
-                sCmniPort1.m_dgRcvData(adtCmd1, ctCmd1);
+                if(m_dgRcvData != null)
+                {
+                    sCmniPort1.m_dgRcvData(sCmniPort1, adtCmd1, ctCmd1);
+                }
             }
             catch
             {
@@ -85,9 +89,9 @@ namespace CmniLib
         }
 
         // パイプを追加
-        public void AddCmniPort(string txCmniPort1, dgRCV_DATA dgRcvData1, sPORT_SETS sPortSets1)
+        public void AddCmniPort(string txCmniPort1, sPORT_SETS sPortSets1)
         {
-            m_asCmniPort.Add(new sCMNI_PORT(txCmniPort1, dgRcvData1, sPortSets1));
+            m_asCmniPort.Add(new sCMNI_PORT(txCmniPort1, m_dgRcvData, sPortSets1));
         }
 
         // パイプを取得
@@ -468,7 +472,7 @@ namespace CmniLib
                                 sCMNI_PORT sCmniPort1 = m_asCmniPort.Where(sCmniPort1 => sCmniPort1.m_txName == sPipe1.m_txName).FirstOrDefault();
 
                                 sCmniPort1.m_sRcvTaskCts = new CancellationTokenSource();
-                                Task.Run(() => PipeRcvTask(sCmniPort1.m_sRcvTaskCts.Token, sCmniPort1.m_dgRcvData, $"{m_sPrs.m_txId} {sPipe1.m_txName}"));
+                                Task.Run(() => PipeRcvTask(sCmniPort1, $"{m_sPrs.m_txId} {sPipe1.m_txName}"));
                                 txRes1 = "ConeRes";
                             }
                         }
@@ -510,14 +514,14 @@ namespace CmniLib
         }
 
         // パイプ受信タスク
-        private async Task PipeRcvTask(CancellationToken sCt1, dgRCV_DATA dgDataRcv1, string txPipeName1)
+        private async Task PipeRcvTask(sCMNI_PORT sCmniPort1, string txPipeName1)
         {
             while (true)
             {
                 using (var sNpss1 = new NamedPipeServerStream(txPipeName1, PipeDirection.InOut, 1, PipeTransmissionMode.Byte, options: PipeOptions.Asynchronous))
                 {
                     // クライアントからの接続を待つ
-                    await sNpss1.WaitForConnectionAsync(sCt1);
+                    await sNpss1.WaitForConnectionAsync(sCmniPort1.m_sRcvTaskCts.Token);
 
                     while (true)
                     {
@@ -529,7 +533,10 @@ namespace CmniLib
                         }
 
                         // リクエストを処理してレスポンスを作る
-                        dgDataRcv1(adtCmd1, adtCmd1.Length);
+                        if(m_dgRcvData != null)
+                        {
+                            m_dgRcvData(sCmniPort1, adtCmd1, adtCmd1.Length);
+                        }
 
                         if (adtCmd1.Length < PipeCom.SRI_RCV_DATA_SIZE)
                         {
@@ -539,14 +546,13 @@ namespace CmniLib
                     }
                 }
 
-                if (sCt1.IsCancellationRequested)
+                if (sCmniPort1.m_sRcvTaskCts.IsCancellationRequested)
                 {
                     // タスク終了
                     break;
                 }
             }
         }
-
 
         // クライアント
         private string Client(string txId1, string txReq1)
@@ -774,24 +780,6 @@ namespace CmniLib
             return (asCmniPipe1.ToArray());
         }
 
-    }
-
-    public class MyClickArgs : System.EventArgs
-    {
-        private string _mymes;
-
-        public MyClickArgs(EventArgs ea, string mymes)
-        {
-            this._mymes = mymes;
-        }
-
-        public string MyMes
-        {
-            get
-            {
-                return _mymes;
-            }
-        }
     }
 
     // 通信ポート
