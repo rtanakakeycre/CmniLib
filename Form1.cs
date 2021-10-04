@@ -28,7 +28,7 @@ namespace CmniLib
             cmniCtrlUc1.AddCmniPort("Dst", RcvData2, m_sPortSelInfo.m_sPortSetsDst);
 
             // 通信管理開始
-            cmniCtrlUc1.StaCmniCtrl(UpdPrsList);
+            cmniCtrlUc1.StaCmniCtrl();
             this.Text = $"{cmniCtrlUc1.m_sPrs.m_txName} {cmniCtrlUc1.m_sPrs.m_txId}";
             
             portEditUc1.SetPortSets(cmniCtrlUc1, cmniCtrlUc1.GetCmniPort("Src"));

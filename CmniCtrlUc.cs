@@ -21,12 +21,14 @@ namespace CmniLib
 
     public partial class CmniCtrlUc : Component
     {
+        // プロセスリスト更新イベント
+        public event dgPRS_LIST_UPD m_dgPrsListUpd;
+        
         private string NPSS_PRFX = "CmniLib";
         // 通信ポートリスト
         public List<sCMNI_PORT> m_asCmniPort;
         // 全プロセス一覧
         public sPRS m_sPrs;
-        public dgPRS_LIST_UPD m_dgPrsListUpd;
         public dgRCV_DATA m_dgRcvData;
         public List<sOTH_PRS> m_asRcgPrs;           // 認識プロセスリスト
 
@@ -97,15 +99,6 @@ namespace CmniLib
         // 通信制御開始
         public void StaCmniCtrl()
         {
-            StaCmniCtrl(null);
-        }
-
-        // 通信制御開始
-        public void StaCmniCtrl(dgPRS_LIST_UPD dgPrsListUpd1)
-        {
-            // 認識プロセス更新時のコールバック
-            m_dgPrsListUpd = dgPrsListUpd1;
-
             // 自プロセス情報を更新
             m_sPrs.m_txName = Process.GetCurrentProcess().ProcessName;
             m_sPrs.m_txId = Process.GetCurrentProcess().Id.ToString();
@@ -781,6 +774,24 @@ namespace CmniLib
             return (asCmniPipe1.ToArray());
         }
 
+    }
+
+    public class MyClickArgs : System.EventArgs
+    {
+        private string _mymes;
+
+        public MyClickArgs(EventArgs ea, string mymes)
+        {
+            this._mymes = mymes;
+        }
+
+        public string MyMes
+        {
+            get
+            {
+                return _mymes;
+            }
+        }
     }
 
     // 通信ポート
