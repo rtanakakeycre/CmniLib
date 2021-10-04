@@ -29,6 +29,7 @@ namespace CmniLib
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.portEditUc1 = new CmniLib.CmniEditUc();
             this.m_sRtbRcv = new System.Windows.Forms.RichTextBox();
             this.m_sRtbSend = new System.Windows.Forms.RichTextBox();
@@ -39,6 +40,7 @@ namespace CmniLib
             this.button1 = new System.Windows.Forms.Button();
             this.portEditUc2 = new CmniLib.CmniEditUc();
             this.button2 = new System.Windows.Forms.Button();
+            this.cmniCtrlUc1 = new CmniLib.CmniCtrlUc(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.m_sDgvPrsList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -172,5 +174,6 @@ namespace CmniLib
         private System.Windows.Forms.Button button1;
         private CmniEditUc portEditUc2;
         private System.Windows.Forms.Button button2;
+        private CmniCtrlUc cmniCtrlUc1;
     }
 }

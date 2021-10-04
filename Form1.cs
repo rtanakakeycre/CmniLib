@@ -22,23 +22,23 @@ namespace CmniLib
             int h1 = this.Handle.ToInt32();
             m_sPortSelInfo = new sPORT_SEL_INFO();
             Com.Deserialize(Com.GetExePath() + "PortSelFrm.xml", ref m_sPortSelInfo, true);
-
+            
             // パイプを追加
-            PipeCmni.AddCmniPort("Src", RcvData, m_sPortSelInfo.m_sPortSets);
-            PipeCmni.AddCmniPort("Dst", RcvData2, m_sPortSelInfo.m_sPortSetsDst);
+            cmniCtrlUc1.AddCmniPort("Src", RcvData, m_sPortSelInfo.m_sPortSets);
+            cmniCtrlUc1.AddCmniPort("Dst", RcvData2, m_sPortSelInfo.m_sPortSetsDst);
 
             // 通信管理開始
-            PipeCmni.StaCmniCtrl(UpdPrsList);
-            this.Text = $"{PipeCmni.m_sPrs.m_txName} {PipeCmni.m_sPrs.m_txId}";
+            cmniCtrlUc1.StaCmniCtrl(UpdPrsList);
+            this.Text = $"{cmniCtrlUc1.m_sPrs.m_txName} {cmniCtrlUc1.m_sPrs.m_txId}";
             
-            portEditUc1.SetPortSets(PipeCmni.GetCmniPort("Src"));
-            portEditUc2.SetPortSets(PipeCmni.GetCmniPort("Dst"));
+            portEditUc1.SetPortSets(cmniCtrlUc1, cmniCtrlUc1.GetCmniPort("Src"));
+            portEditUc2.SetPortSets(cmniCtrlUc1, cmniCtrlUc1.GetCmniPort("Dst"));
 
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            PipeCmni.EndCmniCtrl();
+            cmniCtrlUc1.EndCmniCtrl();
             Com.Serialize(Com.GetExePath() + "PortSelFrm.xml", m_sPortSelInfo);
         }
 
@@ -50,7 +50,7 @@ namespace CmniLib
         public void UpdPrsList_Invoke(string txCmd1)
         {
             m_sRtbRcv.Text += $"\t{txCmd1}";
-            List<sOTH_PRS> asPrs1 = PipeCmni.GetRcgPrsList();
+            List<sOTH_PRS> asPrs1 = cmniCtrlUc1.GetRcgPrsList();
             m_sDgvPrsList.Rows.Clear();
             foreach (sPRS sPrs1 in asPrs1)
             {
@@ -79,7 +79,7 @@ namespace CmniLib
         private void button1_Click(object sender, EventArgs e)
         {
             byte[] adtCmd1 = { 1, 2, 3};
-            PipeCmni.SendCmdToCmniPort("Src", adtCmd1);
+            cmniCtrlUc1.SendCmdToCmniPort("Src", adtCmd1);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace CmniLib
         private void button2_Click(object sender, EventArgs e)
         {
             byte[] adtCmd1 = { 1, 2, 3 };
-            PipeCmni.SendCmdToCmniPort("Dst", adtCmd1);
+            cmniCtrlUc1.SendCmdToCmniPort("Dst", adtCmd1);
         }
     }
 

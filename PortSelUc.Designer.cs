@@ -206,6 +206,7 @@ namespace CmniLib
             this.Controls.Add(this.m_sCmbPortType);
             this.Name = "PortSelUc";
             this.Size = new System.Drawing.Size(212, 268);
+            this.Load += new System.EventHandler(this.PortSelUc_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -22,11 +22,11 @@ namespace CmniLib
 
         }
 
-        public PortSelFrm(sPORT_SETS sPortSets1)
+        public PortSelFrm(CmniCtrlUc sCmniCtrlUc1, sPORT_SETS sPortSets1)
         {
             InitializeComponent();
 
-            m_sPortSelUc.Init(sPortSets1);
+            m_sPortSelUc.Init(sCmniCtrlUc1, sPortSets1);
         }
 
         public sPORT_SETS GetPortSets()

@@ -13,6 +13,8 @@ namespace CmniLib
 {
     public partial class CmniEditUc : UserControl
     {
+        public CmniCtrlUc m_sCmniCtrlUc;
+
         public sCMNI_PORT m_sCmniPort;
         [Description("ラベルのテキストを設定します。")]
         [Category("表示")]
@@ -38,12 +40,14 @@ namespace CmniLib
             m_sCmniPort = new sCMNI_PORT();
         }
 
-        public void SetPortSets(sCMNI_PORT sCmniPort1)
+        public void SetPortSets(CmniCtrlUc sCmniCtrlUc1, sCMNI_PORT sCmniPort1)
         {
+            m_sCmniCtrlUc = sCmniCtrlUc1;
+
             m_sCmniPort = sCmniPort1;
             if (!m_sCmniPort.m_flCone)
             {
-                m_sCmniPort.m_flCone = PipeCmni.StaCmniPort(m_sCmniPort);
+                m_sCmniPort.m_flCone = m_sCmniCtrlUc.StaCmniPort(m_sCmniPort);
             }
 
             UpdDsp();
@@ -70,14 +74,14 @@ namespace CmniLib
 
         private void m_sBtnPort_Click(object sender, EventArgs e)
         {
-            PortSelFrm sFrm1 = new PortSelFrm(m_sCmniPort.m_sPortSets);
+            PortSelFrm sFrm1 = new PortSelFrm(m_sCmniCtrlUc, m_sCmniPort.m_sPortSets);
             if(sFrm1.ShowDialog() == DialogResult.OK)
             {
                 m_sCmniPort.m_sPortSets = sFrm1.GetPortSets();
 
                 if (!m_sCmniPort.m_flCone)
                 {
-                    m_sCmniPort.m_flCone = PipeCmni.StaCmniPort(m_sCmniPort);
+                    m_sCmniPort.m_flCone = m_sCmniCtrlUc.StaCmniPort(m_sCmniPort);
                 }
 
                 UpdDsp();
@@ -88,11 +92,11 @@ namespace CmniLib
         {
             if (!m_sCmniPort.m_flCone)
             {
-                m_sCmniPort.m_flCone = PipeCmni.StaCmniPort(m_sCmniPort);
+                m_sCmniPort.m_flCone = m_sCmniCtrlUc.StaCmniPort(m_sCmniPort);
             }
             else
             {
-                m_sCmniPort.m_flCone = PipeCmni.EndCmniPort(m_sCmniPort);
+                m_sCmniPort.m_flCone = m_sCmniCtrlUc.EndCmniPort(m_sCmniPort);
             }
             UpdDsp();
         }

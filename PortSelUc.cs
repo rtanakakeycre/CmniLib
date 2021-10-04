@@ -11,6 +11,7 @@ namespace CmniLib
 {
     public partial class PortSelUc : UserControl
     {
+        CmniCtrlUc m_sCmniCtrlUc;
         sPORT_SETS m_sPortSets;
         public PortSelUc()
         {
@@ -24,8 +25,9 @@ namespace CmniLib
             m_sCmbHandShake.Items.AddRange(PipeCom.m_asFlwCtl);
         }
 
-        public void Init(sPORT_SETS sPortSets1)
+        public void Init(CmniCtrlUc sCmniCtrlUc1, sPORT_SETS sPortSets1)
         {
+            m_sCmniCtrlUc = sCmniCtrlUc1;
             m_sPortSets = sPortSets1;
             UpdPortSetsToFrm();
         }
@@ -130,7 +132,7 @@ namespace CmniLib
                 case ePORT_TYPE.PIPE:
                     // パイプを更新
                     m_sCmbPort.Items.Clear();
-                    m_sCmbPort.Items.AddRange(PipeCmni.GetRcgCmniPipeList());
+                    m_sCmbPort.Items.AddRange(m_sCmniCtrlUc.GetRcgCmniPipeList());
                     break;
                 case ePORT_TYPE.USB:
                 default:
@@ -182,6 +184,11 @@ namespace CmniLib
         private void m_sCmbHandShake_SelectedIndexChanged(object sender, EventArgs e)
         {
             m_sPortSets.m_nbFlwCtl = (Handshake)((sTX_INT)m_sCmbHandShake.SelectedItem).m_dtVal;
+        }
+
+        private void PortSelUc_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 
