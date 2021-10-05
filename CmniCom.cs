@@ -77,7 +77,7 @@ namespace CmniLib
         LMT
     };
 
-    public class PipeCom
+    public class CmniCom
     {
         public const int RCV_CMD_LEN_MAX = 32;
         public const int SRI_RCV_DATA_SIZE = 256;
@@ -94,7 +94,7 @@ namespace CmniLib
         static public sTX_INT[] m_asFlwCtl;        // フロー制御
         static public int[] m_adtUsbBrt;        // USBボーレート
 
-        static PipeCom()
+        static CmniCom()
         {
             //! 利用可能なシリアルポート名の配列を取得する.
             m_adtDataBit = new int[] {

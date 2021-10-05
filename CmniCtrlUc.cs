@@ -73,9 +73,9 @@ namespace CmniLib
                 sCMNI_PORT sCmniPort1 = m_asCmniPort.Where(sCmnPort1 => sCmnPort1.m_sPortSets.m_nbPortType == ePORT_TYPE.SER && sCmnPort1.m_sPortSets.m_txSerPort == sSerPort1.m_txName).FirstOrDefault();
 
                 //! 受信データを読み込む.
-                byte[] adtCmd1 = new byte[PipeCom.SRI_RCV_DATA_SIZE];
+                byte[] adtCmd1 = new byte[CmniCom.SRI_RCV_DATA_SIZE];
                 int ctCmd1;
-                ctCmd1 = sSp1.Read(adtCmd1, 0, PipeCom.SRI_RCV_DATA_SIZE);
+                ctCmd1 = sSp1.Read(adtCmd1, 0, CmniCom.SRI_RCV_DATA_SIZE);
 
                 if(m_dgRcvData != null)
                 {
@@ -529,7 +529,7 @@ namespace CmniLib
                         byte[] adtCmd1 = null;
                         using (var sBr1 = new BinaryReader(sNpss1, Encoding.UTF8, true))
                         {
-                            adtCmd1 = sBr1.ReadBytes(PipeCom.SRI_RCV_DATA_SIZE);
+                            adtCmd1 = sBr1.ReadBytes(CmniCom.SRI_RCV_DATA_SIZE);
                         }
 
                         // リクエストを処理してレスポンスを作る
@@ -538,7 +538,7 @@ namespace CmniLib
                             m_dgRcvData(sCmniPort1, adtCmd1, adtCmd1.Length);
                         }
 
-                        if (adtCmd1.Length < PipeCom.SRI_RCV_DATA_SIZE)
+                        if (adtCmd1.Length < CmniCom.SRI_RCV_DATA_SIZE)
                         {
                             // 全データ読み込み
                             break;

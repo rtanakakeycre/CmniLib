@@ -19,10 +19,10 @@ namespace CmniLib
             m_sPortSets = new sPORT_SETS();
 
             m_sCmbPortType.Items.AddRange(Com.GetDescriptionListFromEnum(typeof(ePORT_TYPE)).Where(sPortType1 => sPortType1.m_txName != null).ToArray());
-            m_sCmbDataBits.Items.AddRange(PipeCom.m_adtDataBit.Select(dtDataBit1 => dtDataBit1.ToString()).ToArray());
-            m_sCmbStopBits.Items.AddRange(PipeCom.m_asStopBit);
-            m_sCmbParity.Items.AddRange(PipeCom.m_asParity);
-            m_sCmbHandShake.Items.AddRange(PipeCom.m_asFlwCtl);
+            m_sCmbDataBits.Items.AddRange(CmniCom.m_adtDataBit.Select(dtDataBit1 => dtDataBit1.ToString()).ToArray());
+            m_sCmbStopBits.Items.AddRange(CmniCom.m_asStopBit);
+            m_sCmbParity.Items.AddRange(CmniCom.m_asParity);
+            m_sCmbHandShake.Items.AddRange(CmniCom.m_asFlwCtl);
         }
 
         public void Init(CmniCtrlUc sCmniCtrlUc1, sPORT_SETS sPortSets1)
@@ -47,7 +47,7 @@ namespace CmniLib
                         m_sCmbPort.Text = m_sPortSets.m_txSerPort;
                         m_sCmbBaudRate.Enabled = true;
                         m_sCmbBaudRate.Items.Clear();
-                        m_sCmbBaudRate.Items.AddRange(PipeCom.m_adtSerBrt.Select(sSerBrt1 => sSerBrt1.ToString()).ToArray());
+                        m_sCmbBaudRate.Items.AddRange(CmniCom.m_adtSerBrt.Select(sSerBrt1 => sSerBrt1.ToString()).ToArray());
                         m_sCmbBaudRate.Text = m_sPortSets.m_dtSerBrt.ToString();
                         m_sCmbDataBits.Enabled = true;
                         m_sCmbStopBits.Enabled = true;
@@ -67,7 +67,7 @@ namespace CmniLib
                         m_sCmbPort.Enabled = false;
                         m_sCmbBaudRate.Enabled = true;
                         m_sCmbBaudRate.Items.Clear();
-                        m_sCmbBaudRate.Items.AddRange(PipeCom.m_adtUsbBrt.Select(dtUsbBrt1 => dtUsbBrt1.ToString()).ToArray());
+                        m_sCmbBaudRate.Items.AddRange(CmniCom.m_adtUsbBrt.Select(dtUsbBrt1 => dtUsbBrt1.ToString()).ToArray());
                         m_sCmbBaudRate.Text = m_sPortSets.m_dtUsbBrt.ToString();
                         m_sCmbDataBits.Enabled = false;
                         m_sCmbStopBits.Enabled = false;
@@ -80,9 +80,9 @@ namespace CmniLib
                 }
 
                 m_sCmbDataBits.Text = m_sPortSets.m_dtDataBit.ToString();
-                m_sCmbStopBits.Text = PipeCom.m_asStopBit.Where(sStopBit1 => (StopBits)sStopBit1.m_dtVal == m_sPortSets.m_nbStopBit).FirstOrDefault().m_txName;
-                m_sCmbParity.Text = PipeCom.m_asParity.Where(sParity1 => (Parity)sParity1.m_dtVal == m_sPortSets.m_nbPrty).FirstOrDefault().m_txName;
-                m_sCmbHandShake.Text = PipeCom.m_asFlwCtl.Where(sFlwCtl1 => (Handshake)sFlwCtl1.m_dtVal == m_sPortSets.m_nbFlwCtl).FirstOrDefault().m_txName;
+                m_sCmbStopBits.Text = CmniCom.m_asStopBit.Where(sStopBit1 => (StopBits)sStopBit1.m_dtVal == m_sPortSets.m_nbStopBit).FirstOrDefault().m_txName;
+                m_sCmbParity.Text = CmniCom.m_asParity.Where(sParity1 => (Parity)sParity1.m_dtVal == m_sPortSets.m_nbPrty).FirstOrDefault().m_txName;
+                m_sCmbHandShake.Text = CmniCom.m_asFlwCtl.Where(sFlwCtl1 => (Handshake)sFlwCtl1.m_dtVal == m_sPortSets.m_nbFlwCtl).FirstOrDefault().m_txName;
             });
         }
 
