@@ -62,6 +62,7 @@ namespace CmniLib
             m_asPort = new List<sSRI_PORT>();
         }
 
+        // シリアルデータ受信
         private void RcvSerData(object sender, SerialDataReceivedEventArgs e)
         {
             try
@@ -88,13 +89,13 @@ namespace CmniLib
             }
         }
 
-        // パイプを追加
+        // 通信ポートを追加
         public void AddCmniPort(string txCmniPort1, sPORT_SETS sPortSets1)
         {
             m_asCmniPort.Add(new sCMNI_PORT(txCmniPort1, m_dgRcvData, sPortSets1));
         }
 
-        // パイプを取得
+        // 通信ポートを取得
         public sCMNI_PORT GetCmniPort(string txCmniPort1)
         {
             return (m_asCmniPort.Where(sCmniPort1 => sCmniPort1.m_txName == txCmniPort1).FirstOrDefault());
@@ -108,7 +109,7 @@ namespace CmniLib
             m_sPrs.m_txId = Process.GetCurrentProcess().Id.ToString();
 
             // サーバを起動
-            Task.Run(() => ServerTask(ServerProcess));
+            Task.Run(() => ServerTask(RcvDataFromClient));
 
 
             // プロセスに認識要求を送信
@@ -347,6 +348,7 @@ namespace CmniLib
             return (flCone1);
         }
 
+        // サーバのタスク
         private async Task ServerTask(Func<string, string> dgSvrRcv)
         {
             while (true)
@@ -383,9 +385,8 @@ namespace CmniLib
             }
         }
 
-        // サーバでの処理（Serverメソッドの引数に渡す）
-        // Contentの文字列を逆順にする処理
-        private string ServerProcess(string txData1)
+        // クライアントからデータを受信
+        private string RcvDataFromClient(string txData1)
         {
             string txRes1 = "";
 
@@ -554,8 +555,8 @@ namespace CmniLib
             }
         }
 
-        // クライアント
-        private string Client(string txId1, string txReq1)
+        // クライアントからサーバに要求を送信
+        private string SendReqToServer(string txId1, string txReq1)
         {
             string txRes1 = "";
             using (var sNpss1 = new NamedPipeClientStream(GetPipeName(txId1)))
@@ -682,7 +683,7 @@ namespace CmniLib
         public string SendReqToPrs(string txReq1, string txId1)
         {
             // クライアント
-            return (Client(txId1, $"{txReq1}\t{m_sPrs.m_txId}"));
+            return (SendReqToServer(txId1, $"{txReq1}\t{m_sPrs.m_txId}"));
         }
 
         // プロセスリストを取得
