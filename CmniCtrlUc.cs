@@ -16,6 +16,8 @@ using System.Threading;
 
 namespace CmniLib
 {
+    // シリアルやプロセス間通信をバックグラウンドで行うクラスです。
+
     public delegate void dgPRS_LIST_UPD(string txCmd1);
     public delegate void dgRCV_DATA(sCMNI_PORT sCmniPort1, byte[] adtCmd1, int ctCmd1);
 

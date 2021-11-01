@@ -69,7 +69,7 @@ namespace CmniLib
             this.m_sChkCmni.UseVisualStyleBackColor = true;
             this.m_sChkCmni.CheckedChanged += new System.EventHandler(this.m_sChkCmni_CheckedChanged);
             // 
-            // PortEditUc
+            // CmniEditUc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -79,7 +79,7 @@ namespace CmniLib
             this.Controls.Add(this.m_sLblName);
             this.MaximumSize = new System.Drawing.Size(320, 26);
             this.MinimumSize = new System.Drawing.Size(168, 26);
-            this.Name = "PortEditUc";
+            this.Name = "CmniEditUc";
             this.Size = new System.Drawing.Size(220, 24);
             this.ResumeLayout(false);
             this.PerformLayout();
