@@ -47,19 +47,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CmniCom.cs" />
-    <Compile Include="CmniCtrlUc.cs" />
+    <Compile Include="CmniCtrlUc.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CmniCtrlUc.Designer.cs">
       <DependentUpon>CmniCtrlUc.cs</DependentUpon>
     </Compile>
-    <Compile Include="CmniEditUc.cs" />
+    <Compile Include="CmniEditUc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CmniEditUc.Designer.cs">
       <DependentUpon>CmniEditUc.cs</DependentUpon>
     </Compile>
-    <Compile Include="PortSelFrm.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PortSelFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PortSelFrm.Designer.cs">
       <DependentUpon>PortSelFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PortSelUc.cs" />
+    <Compile Include="PortSelUc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PortSelUc.Designer.cs">
       <DependentUpon>PortSelUc.cs</DependentUpon>
     </Compile>
@@ -95,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UtilLib\UtilLib.csproj">
+      <Project>{c8e7ddad-236e-4d1e-a7b6-c531229daef4}</Project>
+      <Name>UtilLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

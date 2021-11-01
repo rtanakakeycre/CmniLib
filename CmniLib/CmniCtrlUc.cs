@@ -460,7 +460,7 @@ namespace CmniLib
                     case "Cone":
                         // 接続要求
                         {
-                            sPIPE sPipe1 = sPrs1.m_asPipe.Where(sPipe1 => sPipe1.m_txName == txArg1).FirstOrDefault();
+                            sPIPE sPipe1 = sPrs1.m_asPipe.Where(sPipe5 => sPipe5.m_txName == txArg1).FirstOrDefault();
                             if (sPipe1 == null)
                             {
                                 // パイプなし
@@ -472,7 +472,7 @@ namespace CmniLib
                             else
                             {
                                 sPipe1.m_flCone = true;
-                                sCMNI_PORT sCmniPort1 = m_asCmniPort.Where(sCmniPort1 => sCmniPort1.m_txName == sPipe1.m_txName).FirstOrDefault();
+                                sCMNI_PORT sCmniPort1 = m_asCmniPort.Where(sCmniPort5 => sCmniPort5.m_txName == sPipe1.m_txName).FirstOrDefault();
 
                                 sCmniPort1.m_sRcvTaskCts = new CancellationTokenSource();
                                 Task.Run(() => PipeRcvTask(sCmniPort1, $"{m_sPrs.m_txId} {sPipe1.m_txName}"));
@@ -484,7 +484,7 @@ namespace CmniLib
                     case "ConeEnd":
                         // 接続終了要求
                         {
-                            sPIPE sPipe1 = sPrs1.m_asPipe.Where(sPipe1 => sPipe1.m_txName == txArg1).FirstOrDefault();
+                            sPIPE sPipe1 = sPrs1.m_asPipe.Where(sPipe5 => sPipe5.m_txName == txArg1).FirstOrDefault();
                             if (!sPipe1.m_flCone)
                             {
                                 // すでに切断済み
@@ -492,7 +492,7 @@ namespace CmniLib
                             else
                             {
                                 sPipe1.m_flCone = false;
-                                sCMNI_PORT sCmniPort1 = m_asCmniPort.Where(sCmniPort1 => sCmniPort1.m_txName == sPipe1.m_txName).FirstOrDefault();
+                                sCMNI_PORT sCmniPort1 = m_asCmniPort.Where(sCmniPort5 => sCmniPort5.m_txName == sPipe1.m_txName).FirstOrDefault();
                                 sCmniPort1.m_sRcvTaskCts.Cancel();
                             }
                         }
