@@ -92,9 +92,9 @@ namespace CmniLib
         }
 
         // 通信ポートを追加
-        public void AddCmniPort(string txCmniPort1, sPORT_SETS sPortSets1)
+        public void AddCmniPort(sCMNI_PORT sCmniPort1)
         {
-            m_asCmniPort.Add(new sCMNI_PORT(txCmniPort1, m_dgRcvData, sPortSets1));
+            m_asCmniPort.Add(sCmniPort1);
         }
 
         // 通信ポートを取得
@@ -791,15 +791,19 @@ namespace CmniLib
     public class sCMNI_PORT
     {
         // データ受信コールバック
+        //[XmlIgnore]
+        //public dgRCV_DATA m_dgRcvData;
+        // 受信タスクキャンセルトークン
         [XmlIgnore]
-        public dgRCV_DATA m_dgRcvData;
+        public CancellationTokenSource m_sRcvTaskCts;
+
         // 名称
         public string m_txName;
-        public bool m_flCone;       // 接続フラグ
+        // 接続フラグ
+        public bool m_flCone;
         // ポート設定
         public sPORT_SETS m_sPortSets;
-        // 受信タスクキャンセルトークン
-        public CancellationTokenSource m_sRcvTaskCts;
+
 
         public sCMNI_PORT()
         {
@@ -807,12 +811,11 @@ namespace CmniLib
             m_sPortSets = new sPORT_SETS();
         }
 
-        public sCMNI_PORT(string txName1, dgRCV_DATA dgRcvData1, sPORT_SETS sPortSets1)
+        public sCMNI_PORT(string txName1)
         {
+            Com.InitData(this);
             m_txName = txName1;
-            m_dgRcvData = dgRcvData1;
-            m_sPortSets = sPortSets1;
-            m_flCone = false;
+            m_sPortSets = new sPORT_SETS();            
         }
 
         public override string ToString()
