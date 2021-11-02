@@ -803,6 +803,7 @@ namespace CmniLib
         public sCMNI_PORT()
         {
             Com.InitData(this);
+            m_sPortSets = new sPORT_SETS();
         }
 
         public sCMNI_PORT(string txName1, dgRCV_DATA dgRcvData1, sPORT_SETS sPortSets1)
