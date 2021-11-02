@@ -98,7 +98,7 @@ namespace CmniLib
         }
 
         // 通信ポートを取得
-        public sCMNI_PORT GetCmniPort(string txCmniPort1)
+        private sCMNI_PORT GetCmniPort(string txCmniPort1)
         {
             return (m_asCmniPort.Where(sCmniPort1 => sCmniPort1.m_txName == txCmniPort1).FirstOrDefault());
         }
@@ -126,7 +126,7 @@ namespace CmniLib
         }
 
         // パイプ名取得
-        public string GetPipeName(string txId1)
+        private string GetPipeName(string txId1)
         {
             return ($"{NPSS_PRFX}_{txId1}");
         }
@@ -184,13 +184,13 @@ namespace CmniLib
         }
 
         // シリアルポート取得
-        public sSRI_PORT GetSerPort(string txName1)
+        private sSRI_PORT GetSerPort(string txName1)
         {
             return (m_asPort.Where(sPort1 => sPort1.m_txName == txName1).FirstOrDefault());
         }
 
         // シリアルポート取得
-        public sSRI_PORT GetSerPort(SerialPort sSp1)
+        private sSRI_PORT GetSerPort(SerialPort sSp1)
         {
             return (m_asPort.Where(sPort1 => sPort1.m_sPort == sSp1).FirstOrDefault());
         }
