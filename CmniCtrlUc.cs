@@ -281,7 +281,8 @@ namespace CmniLib
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                // 通信設定が不正です。
+                //MessageBox.Show(e.Message);
             }
 
             return (flCone1);
