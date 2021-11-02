@@ -63,12 +63,6 @@
     <Compile Include="CmniEditUc.Designer.cs">
       <DependentUpon>CmniEditUc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="PortSelFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,7 +75,6 @@
     <Compile Include="PortSelUc.Designer.cs">
       <DependentUpon>PortSelUc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CmniEditUc.resx">
       <DependentUpon>CmniEditUc.cs</DependentUpon>

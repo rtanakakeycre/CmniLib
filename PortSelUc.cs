@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Windows.Forms;
+using System.ComponentModel;
 using UtilLib;
 
 namespace CmniLib
@@ -94,8 +95,11 @@ namespace CmniLib
         // ポートタイプ変更
         private void m_sCmbPortType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            m_sPortSets.m_nbPortType = (ePORT_TYPE)((sTX_INT)m_sCmbPortType.SelectedItem).m_dtVal;
-            UpdPortSetsToFrm();
+            if(m_sCmbPortType.SelectedItem != null)
+            {
+                m_sPortSets.m_nbPortType = (ePORT_TYPE)((sTX_INT)m_sCmbPortType.SelectedItem).m_dtVal;
+                UpdPortSetsToFrm();
+            }
         }
 
         // ポート変更
@@ -195,15 +199,22 @@ namespace CmniLib
     [Serializable]
     public class sPORT_SETS
     {
-        public ePORT_TYPE m_nbPortType; // ポート種別
-        public string m_txSerPort;      // シリアルポート名
-        public sCMNI_PIPE m_sPipe;             // パイプ名
-        public int m_dtSerBrt;          // シリアルボーレート
-        public int m_dtUsbBrt;          // USBボーレート     
-        public int m_dtDataBit;         // データビット
-        public Handshake m_nbFlwCtl;    // フロー制御
-        public StopBits m_nbStopBit;    // ストップビット
-        public Parity m_nbPrty;         // パリティ
+        [DefaultValue(ePORT_TYPE.SER)]
+        public ePORT_TYPE m_nbPortType { set; get; } // ポート種別
+        public string m_txSerPort { set; get; }      // シリアルポート名
+        public sCMNI_PIPE m_sPipe { set; get; }             // パイプ名
+        [DefaultValue(57600)]
+        public int m_dtSerBrt { set; get; }          // シリアルボーレート
+        [DefaultValue(76800)]
+        public int m_dtUsbBrt { set; get; }          // USBボーレート     
+        [DefaultValue(8)]
+        public int m_dtDataBit { set; get; }         // データビット
+        [DefaultValue(Handshake.None)]
+        public Handshake m_nbFlwCtl { set; get; }    // フロー制御
+        [DefaultValue(1)]
+        public StopBits m_nbStopBit { set; get; }    // ストップビット
+        [DefaultValue(Parity.Even)]
+        public Parity m_nbPrty { set; get; }         // パリティ
 
         public sPORT_SETS()
         {

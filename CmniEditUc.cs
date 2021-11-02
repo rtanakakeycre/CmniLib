@@ -47,16 +47,21 @@ namespace CmniLib
             m_sCmniPort = sCmniPort1;
             if (!m_sCmniPort.m_flCone)
             {
+                // 接続を試みる
                 m_sCmniPort.m_flCone = m_sCmniCtrlUc.StaCmniPort(m_sCmniPort);
             }
 
+            // 表示を更新
             UpdDsp();
         }
 
+        // 表示更新処理
         public void UpdDsp()
         {
             Com.DoSomethingWithoutEvents(new List<Control> { this }, () =>
             {
+                // イベント禁止中
+
                 m_sBtnPort.Text = m_sCmniPort.ToString();
                 m_sChkCmni.Checked = m_sCmniPort.m_flCone;
                 m_sBtnPort.Text = m_sCmniPort.m_sPortSets.ToString();
