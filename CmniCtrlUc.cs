@@ -82,7 +82,7 @@ namespace CmniLib
 
                 if(m_dgRcvData != null)
                 {
-                    sCmniPort1.m_dgRcvData(sCmniPort1, adtCmd1, ctCmd1);
+                    m_dgRcvData(sCmniPort1, adtCmd1, ctCmd1);
                 }
             }
             catch
